@@ -1,10 +1,25 @@
+import { StyledHeader, StyledNav } from "./Header.style";
+import { MdSearch } from "react-icons/md";
 
+const Header = ({type, setType, term, setTerm}) => {
 
-const Header = () => {
   return (
-    <div>
-      Header
-    </div>
+    <StyledHeader>
+      <StyledNav>
+      <h2>Explora</h2>
+      <div>
+          <select value={type} onChange={(e) => setType(e.target.value)}>
+            <option value="restaurants">Restaurants</option>
+            <option value="hotels">Hotels</option>
+            <option value="attractions">Attractions</option>
+          </select>
+        <div>
+          <MdSearch />
+          <input type="text" value={term} onChange={(e) => setTerm(e.target.value)} />
+        </div>
+      </div>
+      </StyledNav>
+    </StyledHeader>
   )
 }
 

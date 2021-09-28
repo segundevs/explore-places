@@ -1,10 +1,14 @@
-import React from 'react'
+import { StyledCard } from "./Card.style";
+import Logo from '../../images/place.jpg';
 
-const Card = () => {
-  return (
-    <div>
-      Card
-    </div>
+const Card = ({place}) => {
+
+  
+
+  return ( 
+    <StyledCard>
+      {/* {console.log(place)} */}
+    </StyledCard> 
   )
 }
 

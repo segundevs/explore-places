@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './App';
 import {ThemeProvider} from 'styled-components';
-import DataProvider from './components/context/dataContext/DataContext';
+
 
 const theme = {
   colors: {
@@ -15,9 +15,7 @@ const theme = {
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <DataProvider>
         <App />
-      </DataProvider>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
