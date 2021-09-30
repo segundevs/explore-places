@@ -18,8 +18,8 @@ const options = {
     adults: '1'
   },
   headers: {
-    'x-rapidapi-host': process.env.REACT_APP_API_HOST,
-    'x-rapidapi-key': process.env.REACT_APP_API_KEY
+    'x-rapidapi-host': 'travel-advisor.p.rapidapi.com',
+    'x-rapidapi-key': '5ed8cbe68emshabb22139a5af869p1b8fefjsn5e34ca94d78a'
   }
 };
 

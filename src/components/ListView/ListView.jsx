@@ -9,19 +9,17 @@ const ListView = ({places, error}) => {
     infinite: true,
     speed: 500,
     slidesToShow: 3,
-    slidesToScroll: 1,
-    centerMode: true
+    slidesToScroll: 2,
+    // centerMode: true
   };
 
   return (
     <Slider {...settings}>
       {places && places.map((place => (
         <StyledContainer key={place.location_id}>
-          <Card place={place}/>
-        </StyledContainer>
-        
+           <Card place={place}/>
+        </StyledContainer>  
       )))}
-      {error && console.log(error)}
     </Slider>
   )
 }

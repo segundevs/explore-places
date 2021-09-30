@@ -14,7 +14,7 @@ const Header = ({type, setType, term, setTerm}) => {
             <option value="attractions">Attractions</option>
           </select>
         <div>
-          <MdSearch />
+          <MdSearch style={{color: '#424042', margin: 'auto 10px'}}/>
           <input type="text" value={term} onChange={(e) => setTerm(e.target.value)} />
         </div>
       </div>

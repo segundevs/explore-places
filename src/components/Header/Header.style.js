@@ -16,6 +16,7 @@ export const StyledNav = styled.nav`
 
   div {
     display: flex;
+    height: 30px;
 
 
     select {
@@ -26,6 +27,12 @@ export const StyledNav = styled.nav`
     div {
       width: 250px;
       background-color: ${({theme}) => theme.colors.bg};
+      height: 100%;
+
+      input {
+        border: none;
+        outline: none;
+      }
     }
   }
 `
