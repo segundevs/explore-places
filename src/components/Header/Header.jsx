@@ -1,5 +1,5 @@
 import { StyledHeader, StyledNav } from "./Header.style";
-import { MdSearch } from "react-icons/md";
+import SearchIcon from '@material-ui/icons/Search';
 
 const Header = ({type, setType, term, setTerm}) => {
 
@@ -14,7 +14,7 @@ const Header = ({type, setType, term, setTerm}) => {
             <option value="attractions">Attractions</option>
           </select>
         <div>
-          <MdSearch style={{color: '#424042', margin: 'auto 10px'}}/>
+          <SearchIcon style={{color: '#424042', margin: 'auto 10px'}}/>
           <input type="text" value={term} onChange={(e) => setTerm(e.target.value)} />
         </div>
       </div>

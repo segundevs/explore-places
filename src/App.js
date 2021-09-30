@@ -10,27 +10,35 @@ import Map from './components/Map/Map';
 
 function App() {
 
+  const [coordinates, setCoordinates] = useState({});
+  const [bounds, setBounds] = useState({});
+
   const [places, setPlaces] = useState([]);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(true);
 
   const [type, setType] = useState('restaurants');
 
-  const [coordinates, setCoordinates] = useState({lat: 0, lng: 0});
-  const [bounds, setBounds] = useState(null)
+  
 
   const [term, setTerm] = useState('');
+
+  //Get user's current location
+  useEffect(()=>{
+    navigator.geolocation.getCurrentPosition(({coords}) => {
+      setCoordinates({ lat: coords.latitude, lng: coords.longitude })
+    })
+  },[])
 
   useEffect(()=>{
     const fetchPlaces = async() => {
       try {
         const response = await axios.get('https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary', {
   params: {
-    bl_latitude: '11.847676',
-    bl_longitude: '108.473209',
-    tr_longitude: '109.149359',
-    tr_latitude: '12.838442',
-    limit: '30',
+    bl_latitude: bounds.sw.lat,
+    bl_longitude: bounds.sw.lng,
+    tr_longitude: bounds.ne.lng,
+    tr_latitude: bounds.ne.lat
   },
   headers: {
     'x-rapidapi-host': process.env.REACT_APP_API_HOST,
@@ -48,7 +56,7 @@ function App() {
 
     fetchPlaces()
     
-  },[])
+  },[bounds])
 
   
   return (
@@ -57,7 +65,13 @@ function App() {
       <GlobalStyle />
      <Header type={type} setType={setType} term={term} setTerm={setTerm}/>
      <ListView places={places} error={error} loading={loading}/>
-     <Map error={error} loading={loading} setBounds={setBounds} coordinates={coordinates} setCordinates={setCoordinates}/>
+     <Map error={error} 
+     loading={loading}
+     coordinates={coordinates}
+     setCoordinates={setCoordinates}
+     places={places}
+     setBounds={setBounds}
+     />
     </div>
   );
 }

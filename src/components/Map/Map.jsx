@@ -1,10 +1,10 @@
+import LocationOnIcon from '@material-ui/icons/LocationOn';
 import GoogleMapReact from 'google-map-react';
 import { MapContainer } from './Map.style';
 
 
-const Map = ({setBounds, coordinates, setCoordinates}) => {
-
-  // const coordinates = { lat: 36.7783, lng: 119.4179}
+const Map = ({coordinates, setCoordinates, setBounds, places}) => {
+  
   return (
     <MapContainer>
        <GoogleMapReact
@@ -12,14 +12,16 @@ const Map = ({setBounds, coordinates, setCoordinates}) => {
           defaultCenter={coordinates}
           center={coordinates}
           defaultZoom={14}
-          // options={''}
           onChange={(e)=>{
-            console.log(e.center.lat)
-            // setBounds({ne: e.marginBounds.ne, sw: e.marginBounds.sw})
             setCoordinates({lat: e.center.lat, lng: e.center.lng})
+            setBounds({ne: e.marginBounds.ne, sw: e.marginBounds.sw})  
           }}
-          // onChildClick={''}
         >
+          {places && places.map(place => (
+            <div lat={place.latitude} lng={place.longitude} key={place.location_id}>
+              <LocationOnIcon />
+            </div>
+          ))}
         
         </GoogleMapReact>
     </MapContainer>
