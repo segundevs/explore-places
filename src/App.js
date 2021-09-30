@@ -16,6 +16,9 @@ function App() {
 
   const [type, setType] = useState('restaurants');
 
+  const [coordinates, setCoordinates] = useState({lat: 0, lng: 0});
+  const [bounds, setBounds] = useState(null)
+
   const [term, setTerm] = useState('');
 
   useEffect(()=>{
@@ -54,7 +57,7 @@ function App() {
       <GlobalStyle />
      <Header type={type} setType={setType} term={term} setTerm={setTerm}/>
      <ListView places={places} error={error} loading={loading}/>
-     <Map error={error} loading={loading}/>
+     <Map error={error} loading={loading} setBounds={setBounds} coordinates={coordinates} setCordinates={setCoordinates}/>
     </div>
   );
 }
