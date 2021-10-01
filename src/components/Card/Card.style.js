@@ -39,5 +39,9 @@ export const DetailsContainer = styled.div`
   div{
     display: flex;
     justify-content: space-between;
+
+    p{
+      font-size: 14px;
+    }
   }
 `

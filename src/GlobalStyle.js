@@ -9,7 +9,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 
   body {
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Roboto', sans-serif;
     background-color: ${({theme}) => theme.colors.bg};
     color: ${({theme}) => theme.colors.color};
     overflow-x: hidden;

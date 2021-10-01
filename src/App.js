@@ -6,8 +6,6 @@ import Header from './components/Header/Header';
 import ListView from './components/ListView/ListView';
 import Map from './components/Map/Map';
 
-// import { getPlaces } from './utils/api';
-
 function App() {
 
   const [coordinates, setCoordinates] = useState({});
@@ -18,9 +16,6 @@ function App() {
   const [loading, setLoading] = useState(true);
 
   const [type, setType] = useState('restaurants');
-
-  
-
   const [term, setTerm] = useState('');
 
   //Get user's current location
@@ -33,7 +28,7 @@ function App() {
   useEffect(()=>{
     const fetchPlaces = async() => {
       try {
-        const response = await axios.get('https://travel-advisor.p.rapidapi.com/restaurants/list-in-boundary', {
+        const response = await axios.get(`https://travel-advisor.p.rapidapi.com/${type}/list-in-boundary`, {
   params: {
     bl_latitude: bounds.sw.lat,
     bl_longitude: bounds.sw.lng,
@@ -46,7 +41,8 @@ function App() {
   }
 });
         const res = await response.data;
-        setPlaces(res.data);
+        const data = res.data;
+        setPlaces(data.filter(place => place.name && place.num_reviews > 0 && place.rating));
         setError(true)
       } catch (err) {
         setError(err.message)
@@ -56,14 +52,15 @@ function App() {
 
     fetchPlaces()
     
-  },[bounds])
+  },[type, coordinates, bounds])
+  // type, coordinates, bounds
 
   
   return (
     <div>
       {console.log(places)}
       <GlobalStyle />
-     <Header type={type} setType={setType} term={term} setTerm={setTerm}/>
+     <Header type={type} setType={setType} term={term} setTerm={setTerm} setCoordinates={setCoordinates}/>
      <ListView places={places} error={error} loading={loading}/>
      <Map error={error} 
      loading={loading}
