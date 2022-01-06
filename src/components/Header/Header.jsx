@@ -1,20 +1,39 @@
-import { useState } from 'react';
-import { Autocomplete } from "@react-google-maps/api";
+// import { Autocomplete } from "@react-google-maps/api";
+import {useState, useEffect} from 'react';
+import axios from 'axios';
 import { StyledHeader, StyledNav } from "./Header.style";
 import SearchIcon from '@mui/icons-material/Search';
 
-const Header = ({type, setType, setCoordinates }) => {
+const Header = ({type, setType, setCoordinates, coordinates }) => {
 
-   const [autocomplete, setAutocomplete]= useState(null);
+   const [value, setValue] = useState('germany');
 
-    const onLoad =(autoC)=> setAutocomplete(autoC)
+   const [response, setResponse] = useState({})
 
-    const onPlaceChanged=()=>{
-        const lat= autocomplete.getPlace().geometry?.location.lat();
-        const lng = autocomplete.getPlace().geometry?.location.lng();
-        console.log(autocomplete.getPlace().geometry)
-        // setCoordinates({lat, lng})
-    }
+    
+   useEffect(() => {
+      const fetchPlaces = async () => {
+        try{
+          const res = await axios.get('https://forward-reverse-geocoding.p.rapidapi.com/v1/search', { params: {
+        q: `germany`, 'accept-language': 'en'},
+        headers: {
+        'x-rapidapi-host': 'forward-reverse-geocoding.p.rapidapi.com',
+        'x-rapidapi-key': '5ed8cbe68emshabb22139a5af869p1b8fefjsn5e34ca94d78a'
+      }
+       });
+
+       const data = await res.data;
+
+       setResponse(data)
+
+        } catch(err) {
+          console.log(err)
+        }
+  }
+  fetchPlaces()
+    }, [])
+
+  
 
   return (
     <StyledHeader>
@@ -30,7 +49,7 @@ const Header = ({type, setType, setCoordinates }) => {
           {/* <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} > */}
             <div>
             <SearchIcon style={{color: '#424042', margin: 'auto 10px'}}/>
-            <input type="text" />
+            <input type="text" value={value} onChange={(e) => setValue(e.target.value)}/>
             </div>
           {/* </Autocomplete> */}
      
